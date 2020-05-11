@@ -1,0 +1,2 @@
+# flutter_restaurants
+Flutter使ったレストラン予約アプリっぽいサンプル
