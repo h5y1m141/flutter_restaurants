@@ -118,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               child: Text(
                                 "ログイン",
+                                key: Key('login'),
                                 style: style.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -147,6 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               child: Text(
                                 "新規登録",
+                                key: Key('signup'),
                                 style: style.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
