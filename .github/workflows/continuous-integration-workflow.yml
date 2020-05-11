@@ -1,0 +1,40 @@
+# https://github.com/tianhaoz95/iwfp/blob/master/.github/workflows/merge.yml
+name: iPhone Simulator Test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: flutter drive
+    strategy:
+      matrix:
+        device:
+          - "iPad Air (3rd generation) (13.4.1)"
+          - "iPhone 11 (13.4.1)"
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v1
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - name: Set up flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - name: list all simulators
+        run: xcrun instruments -s
+      - name: start simulator
+        run: |
+          UDID=$(
+            xcrun instruments -s |
+            awk \
+              -F ' *[][]' \
+              -v 'device=${{ matrix.device }}' \
+              '$1 == device { print $2 }'
+          )
+          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      - name: flutter test
+        run: flutter drive --target=test_driver/app.dart
