@@ -26,7 +26,7 @@ jobs:
         with:
           channel: "stable"
       - name: copy google-service
-        run: echo $GOOGLE_SERVICE | openssl enc -e -base64 > ./ios/Runner/GoogleService-Info.plist
+        run: echo $GOOGLE_SERVICE | openssl enc -d -base64 > ./ios/Runner/GoogleService-Info.plist
       - name: debug list command
         run: ls -al ./ios/Runner
       - name: cat google-service
