@@ -12,17 +12,25 @@ jobs:
           - "iPad Air (3rd generation) (13.4.1)"
           - "iPhone 11 (13.4.1)"
     runs-on: macOS-10.14
+    env:
+      GOOGLE_SERVICE: ${{ secrets.GOOGLE_SERVICE_YAML }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v1
       - name: Set up Java
         uses: actions/setup-java@v1
         with:
-          java-version: '12.x'
+          java-version: "12.x"
       - name: Set up flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: 'stable'
+          channel: "stable"
+      - name: copy google-service
+        run: echo $GOOGLE_SERVICE > ./ios/Runner/GoogleService-Info.plist
+      - name: debug list command
+        run: ls -al ./ios/Runner
+      - name: cat google-service
+        run: cat ./ios/Runner/GoogleService-Info.plist
       - run: flutter pub get
       - name: list all simulators
         run: xcrun instruments -s
