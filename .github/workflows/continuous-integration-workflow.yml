@@ -25,6 +25,10 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
+      - name: debug list command
+        run: ls -al ./ios/Runner
+      - name: debug cat GoogleService-Info.plist
+        run: echo $GOOGLE_SERVICE | base64 --decode
       - name: copy google-service
         run: echo $GOOGLE_SERVICE | base64 --decode > ./ios/Runner/GoogleService-Info.plist
       - run: flutter pub get
