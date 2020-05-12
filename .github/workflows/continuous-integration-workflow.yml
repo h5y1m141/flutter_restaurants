@@ -26,7 +26,7 @@ jobs:
         with:
           channel: "stable"
       - name: copy google-service
-        run: echo $GOOGLE_SERVICE | base64 --decode > ios/Runner/GoogleService-Info.plist
+        run: echo $GOOGLE_SERVICE | base64 --decode > ./ios/Runner/GoogleService-Info.plist
       - run: flutter pub get
       - name: list all simulators
         run: xcrun instruments -s
