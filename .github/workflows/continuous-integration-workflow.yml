@@ -25,10 +25,8 @@ jobs:
         uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - name: reset GoogleService-Info.plist
-        run: rm ./ios/Runner/GoogleService-Info.plist
       - name: copy google-service
-        run: echo $GOOGLE_SERVICE | openssl enc -e -base64 > ./ios/Runner/GoogleService-Info.plist
+        run: cat $GOOGLE_SERVICE | openssl enc -e -base64 > ./ios/Runner/GoogleService-Info.plist
       - name: debug list command
         run: ls -al ./ios/Runner
       - name: cat google-service
